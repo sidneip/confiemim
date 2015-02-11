@@ -259,6 +259,7 @@ Devise.setup do |config|
   config.omniauth :facebook, "289538967856451",
     "a6767fa7927b3a855f2c48fd65c16f09",
     scope: 'email, public_profile',
+    image_size: 'large',
     client_options: {
       site: 'https://graph.facebook.com/v2.0',
       authorize_url: "https://www.facebook.com/v2.0/dialog/oauth"

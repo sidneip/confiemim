@@ -1,0 +1,21 @@
+pt-BR:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            current_password:
+              blank: "em branco"
+            password:
+              confirmation: ""
+              blank:  ""
+              too_short: ""
+            login:
+              taken: ""
+              blank: ""
+              too_short: ""
+            email:
+              taken: ""
+              blank: ""
+              too_short: ""
+              invalid: ""

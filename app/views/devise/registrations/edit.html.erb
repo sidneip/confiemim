@@ -1,41 +1,89 @@
-<div class="authform">
-  <h3>Edit <%= resource_name.to_s.humanize %></h3>
-  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :role => 'form'}) do |f| %>
-    <%= devise_error_messages! %>
-    <div class="form-group">
-      <%= f.label :name %>
-      <%= f.text_field :name, :autofocus => true, class: 'form-control' %>
-    </div>
-    <div class="form-group">
-      <%= f.label :email %>
-      <%= f.email_field :email, class: 'form-control' %>
-      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-      <% end %>
-    </div>
-    <fieldset>
-      <p>Leave these fields blank if you don't want to change your password.</p>
-      <div class="form-group">
-        <%= f.label :password %>
-        <%= f.password_field :password, :autocomplete => 'off', class: 'form-control' %>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+      <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :role => 'form'}) do |f| %>
+      <%= devise_error_messages! %>
+      <h2>PERFIL <small>Complete seu perfil para ganhar a a confiança dos outros usuarios.</small></h2>
+        <hr class="colorgraph">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+              <%= f.text_field :name, :autofocus => true, placeholder: 'Nome', class: 'form-control input-lg', :tabindex => '1'%>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.text_field :email, :autofocus => true, placeholder: 'Email', class: 'form-control input-lg', :tabindex => '1'%>
+        </div>
+        <div class="form-group">
+          <div class="row">
+          <div class="col-xs-5 col-sm-5 col-md-5">
+            <%= f.text_field :cep, placeholder: 'Cep', class: 'form-control input-lg'%>
+          </div>
+          <div class="col-xs-5 col-sm-5 col-md-5">
+            <%= f.text_field :number, placeholder: 'Numero', class: 'form-control input-lg'%>
+          </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.text_field :address, placeholder: 'Endereço', class: 'form-control input-lg'%>
+        </div>
+        <div class="row">
+          <div class="col-xs-5 col-sm-5 col-md-5">
+            <div class="form-group">
+              <%= f.password_field :password, :autocomplete => 'off', class: 'form-control input-lg', placeholder: 'Alterar Senha' %>
+            </div>
+          </div>
+          <div class="col-xs-7 col-sm-7 col-md-7">
+            <div class="form-group">
+              <%= f.password_field :password_confirmation, class: 'form-control input-lg', placeholder: 'Confirme nova Senha' %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3 col-sm-3 col-md-3">
+            <span class="button-checkbox">
+              <button type="button" class="btn" data-color="info" tabindex="7">Eu aceito</button>
+              <input type="checkbox" name="t_and_c" id="t_and_c" class="hidden" value="1">
+            </span>
+          </div>
+          <div class="col-xs-9 col-sm-9 col-md-9">
+           Clickando em <strong class="label label-primary">Editar</strong>, você esta de acordo com nossos <a href="#" data-toggle="modal" data-target="#t_and_c_m">Termos e confições</a>.
+         </div>
+       </div>
+
+       <hr class="colorgraph">
+       <div class="row">
+        <div class="col-xs-6 col-md-6">
+          <%= f.submit 'Editar', :class => 'btn btn-primary btn-block btn-lg' %>
+        </div>
       </div>
-      <div class="form-group">
-        <%= f.label :password_confirmation %>
-        <%= f.password_field :password_confirmation, class: 'form-control' %>
-      </div>
-    </fieldset>
-    <fieldset>
-      <p>You must enter your current password to make changes.</p>
-      <div class="form-group">
-        <%= f.label :current_password %>
-        <%= f.password_field :current_password, class: 'form-control' %>
-      </div>
-    </fieldset>
-    <%= f.submit 'Update', :class => 'button right' %>
-  <% end %>
+    </form>
+    <% end %>
+  </div>
 </div>
-<div class="authform">
-<h3>Cancel Account</h3>
-<p>Unhappy? We'll be sad to see you go.</p>
-<%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button right' %>
+<!-- Modal -->
+<div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="myModalLabel">Terms & Conditions</h4>
+      </div>
+      <div class="modal-body">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">I Agree</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 </div>
+

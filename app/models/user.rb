@@ -1,18 +1,9 @@
 class User < ActiveRecord::Base
+  has_many :comments, as: :commentable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
-
-  TEMP_EMAIL_PREFIX = 'change@me'
-  TEMP_EMAIL_REGEX = /\Achange@me/
-
-  # Include default devise modules. Others available are:
-  # :lockable, :timeoutable
-  # devise :database_authenticatable, :registerable, :confirmable,
-  #   :recoverable, :rememberable, :trackable, :validatable, 
-
-  validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
+  :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   def self.find_for_oauth(auth, signed_in_resource = nil)
 
@@ -31,18 +22,18 @@ class User < ActiveRecord::Base
       # Get the existing user by email if the provider gives us a verified email.
       # If no verified email was provided we assign a temporary email and ask the
       # user to verify it on the next step via UsersController.finish_signup
-      email_is_verified = auth.info.email && (auth.info.verified || auth.info.verified_email)
-      email = auth.info.email if email_is_verified
+      email = auth.info.email
       user = User.where(:email => email).first if email
 
       # Create the user if it's a new registration
       if user.nil?
         user = User.new(
           name: auth.extra.raw_info.name,
+          image_string: auth.info.image,
           #username: auth.info.nickname || auth.uid,
           email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
           password: Devise.friendly_token[0,20]
-        )
+          )
         user.save!
       end
     end
@@ -55,7 +46,11 @@ class User < ActiveRecord::Base
     user
   end
 
-  def email_verified?
-    self.email && self.email !~ TEMP_EMAIL_REGEX
+  def update_with_password(params={}) 
+    if params[:password].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation) if params[:password_confirmation].blank? 
+    end
+    update_attributes(params) 
   end
 end
