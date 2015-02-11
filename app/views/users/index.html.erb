@@ -2,7 +2,7 @@
   <div class="row">
   <% @users.each do |user| %>
     <div class="col-md-3">
-    <h3><%= link_to user.name, user_path(user) %></h3>
+    <h3 style="text-align:center;"><%= link_to user.name, user_path(user) %></h3>
     <img src=<%= user.image_string %> alt="125x125" class="img-circle">
     </div>
   <% end %>
