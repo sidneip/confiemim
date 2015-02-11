@@ -18,15 +18,25 @@
         <div class="form-group">
           <div class="row">
           <div class="col-xs-5 col-sm-5 col-md-5">
-            <%= f.text_field :cep, placeholder: 'Cep', class: 'form-control input-lg'%>
+            <%= f.text_field :cep, placeholder: 'Cep', class: 'form-control input-lg', id:'cep'%>
           </div>
           <div class="col-xs-5 col-sm-5 col-md-5">
-            <%= f.text_field :number, placeholder: 'Numero', class: 'form-control input-lg'%>
+            <%= f.text_field :number, placeholder: 'Numero', class: 'form-control input-lg', id:'numero'%>
           </div>
           </div>
         </div>
         <div class="form-group">
-          <%= f.text_field :address, placeholder: 'Endereço', class: 'form-control input-lg'%>
+          <%= f.text_field :address, placeholder: 'Endereço', class: 'form-control input-lg', id:'endereco'%>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-xs-5 col-sm-5 col-md-5">
+              <%= f.text_field :country, placeholder: 'Estado', class: 'form-control input-lg', id:'estado'%>
+            </div>
+            <div class="col-xs-5 col-sm-5 col-md-5">
+              <%= f.text_field :city, placeholder: 'Cidade', class: 'form-control input-lg', id:'cidade'%>
+            </div>
+          </div>
         </div>
         <div class="row">
           <div class="col-xs-5 col-sm-5 col-md-5">
@@ -87,3 +97,28 @@
 </div><!-- /.modal -->
 </div>
 
+<script>
+  $(document).ready(function() {
+
+  /* Executa a requisição quando o campo CEP perder o foco */
+  $('#cep').blur(function() {
+
+    /* Configura a requisição AJAX */
+    $.ajax({
+      url: "http://cep.republicavirtual.com.br/web_cep.php?formato=json&cep=" + $('#cep').val(),
+      type: 'POST',
+      data: 'cep=' + $('#cep').val(),
+      dataType: 'json',
+      success: function(data) {
+        if(data.resultado == "1") {
+          $('#endereco').val(data.tipo_logradouro + " " + data.logradouro);
+          $('#cidade').val(data.cidade);
+          $('#estado').val(data.uf);
+          $('#numero').focus();
+        }
+      }
+    });
+    return false;
+  });
+});
+</script>
