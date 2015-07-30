@@ -19,8 +19,6 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      require 'byebug'
-      byebug
       accessible = [ :name, :email, :password, :password_confirmation, coments_attributes: [:content]] # extend with your own params
       params.require(:user).permit(accessible)
     end
